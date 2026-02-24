@@ -224,8 +224,8 @@ h2 {
 
 <div id="splash-screen">
   <div class="splash-card">
-    <div class="splash-logo-icon icon-3d">📦</div>
-    <h2>CEP VIÇOSA ULTRA</h2>
+    <div class="splash-logo-icon icon-3d">ðŸ“¦</div>
+    <h2>CEP VIÃ‡OSA ULTRA</h2>
     <p id="status-carregamento" style="color: #90cdf4; font-size: 0.9em; margin: 0;">Baixando ruas...</p>
     <div class="progress-container">
       <div class="progress-bar"></div>
@@ -235,13 +235,13 @@ h2 {
 
 <div class="container" id="main-app">
   <div class="main-card">
-    <h2>TRIAGEM VIÇOSA CEP's</h2>
+    <h2>TRIAGEM VIÃ‡OSA CEP's</h2>
     <div class="inner-card">
       <div class="mic-box" id="btn-mic">
-        <span class="icon-3d" style="font-size: 24px;">🎙️</span>
+        <span class="icon-3d" style="font-size: 24px;">ðŸŽ™ï¸</span>
       </div>
       <div class="instrucao-container">
-        <p id="instrucao-toque"><span class="icon-3d">⏳</span> Aguarde o carregamento...</p>
+        <p id="instrucao-toque"><span class="icon-3d">â³</span> Aguarde o carregamento...</p>
         <p id="instrucao-diga">Diga o <strong>CEP</strong> ou <strong>Logradouro</strong></p>
         <p id="texto-ouvido"></p>
       </div>
@@ -258,7 +258,7 @@ let baseDeDadosLocal = [];
 let dadosCarregados = false;
 
 window.addEventListener('load', async () => {
-  // Substitu�mos o google.script.run pelo m�todo moderno fetch()
+  // Substituímos o google.script.run pelo método moderno fetch()
   try {
     const resposta = await fetch(API_URL);
     const dados = await resposta.json();
@@ -273,12 +273,12 @@ window.addEventListener('load', async () => {
     if (statusCarregamento) statusCarregamento.innerText = "Tudo pronto!";
     
   } catch (erro) {
-    console.error("Erro de conex�o com a API:", erro);
+    console.error("Erro de conexão com a API:", erro);
     const instrucaoToque = document.getElementById('instrucao-toque');
-    if (instrucaoToque) instrucaoToque.innerHTML = '<span style="color: #ff4444;">Erro na conex�o. Verifique a URL da API.</span>';
+    if (instrucaoToque) instrucaoToque.innerHTML = '<span style="color: #ff4444;">Erro na conexão. Verifique a URL da API.</span>';
   }
 
-  // Anima��o visual independente do servidor (Mantida exatamente como a sua)
+  // Animação visual independente do servidor (Mantida exatamente como a sua)
   setTimeout(() => {
     const splashScreen = document.getElementById('splash-screen');
     const mainApp = document.getElementById('main-app');
@@ -294,7 +294,7 @@ window.addEventListener('load', async () => {
   }, 2500); 
 });
 
-// �udio e Haptic Feedback (Mantido intacto)
+// Áudio e Haptic Feedback (Mantido intacto)
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 
@@ -362,7 +362,7 @@ recognition.onend = () => {
   document.getElementById('instrucao-toque').innerHTML = '<span class="icon-3d"></span> Toque no quadro acima para iniciar';
 };
 
-// Busca Otimizada em Mem�ria Local (Mantida intacta)
+// Busca Otimizada em Memória Local (Mantida intacta)
 function processarBuscaLocal(termo) {
   const termoBusca = String(termo).toLowerCase().trim();
   const resultadosEncontrados = [];
