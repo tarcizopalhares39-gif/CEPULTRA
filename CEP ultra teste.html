@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<base target="_top">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul-correios: #003153;
+  --amarelo-correios: #fce300;
+  --preto-amoled: #000000;
+  --fundo-grad-topo: #00152e;
+  --cor-luz-borda: #fce300;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg, var(--fundo-grad-topo) 0%, var(--preto-amoled) 50%, var(--preto-amoled) 100%);
+  background-attachment: fixed;
+  color: white;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+  perspective: 1000px; 
+  user-select: none; 
+  -webkit-user-select: none;
+}
+
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, var(--fundo-grad-topo) 0%, var(--preto-amoled) 55%, var(--preto-amoled) 100%);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.splash-card {
+  background: linear-gradient(145deg, #111111, #050505);
+  border-radius: 24px;
+  padding: 35px 25px;
+  width: 85%;
+  max-width: 400px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 49, 83, 0.8);
+  box-shadow: inset 0 1px 15px rgba(0, 49, 83, 0.3), 0 6px 0 #000000, 0 25px 40px rgba(0,0,0,0.95);
+  animation: pulse3D 2s infinite alternate ease-in-out;
+}
+
+@keyframes pulse3D {
+  0% { transform: scale(1) translateY(0); box-shadow: inset 0 1px 15px rgba(0, 49, 83, 0.3), 0 6px 0 #000000, 0 25px 40px rgba(0,0,0,0.95); }
+  100% { transform: scale(1.02) translateY(-4px); box-shadow: inset 0 1px 25px rgba(0, 49, 83, 0.5), 0 10px 0 #000000, 0 35px 50px rgba(0,0,0,0.95); }
+}
+
+.splash-logo-icon { font-size: 3em; margin-bottom: 15px; }
+
+.progress-container {
+  width: 100%;
+  height: 12px;
+  background: #030405;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #b8a600, var(--amarelo-correios));
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.5), 0 0 10px var(--amarelo-correios);
+  animation: fillProgress 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes fillProgress { 0% { width: 0%; } 100% { width: 100%; } }
+.hide-splash { opacity: 0; transform: scale(1.1); pointer-events: none; }
+
+.container {
+  width: 90%;
+  max-width: 500px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  transform-style: preserve-3d;
+  opacity: 0; 
+  transform: translateY(40px) scale(0.95) rotateX(-10deg);
+}
+
+.start-cinematic { animation: cinematicEntry 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+@keyframes cinematicEntry {
+  0% { opacity: 0; transform: translateY(40px) scale(0.95) rotateX(-10deg); }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0); }
+}
+
+.main-card {
+  background: linear-gradient(145deg, #111111, #050505);
+  border-radius: 24px;
+  padding: 25px;
+  border-top: 1px solid rgba(0, 49, 83, 0.8);
+  box-shadow: inset 0 1px 15px rgba(0, 49, 83, 0.3), 0 6px 0 #000000, 0 15px 25px rgba(0,0,0,0.95); 
+  margin-bottom: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: var(--amarelo-correios);
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 1.6em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+
+.inner-card {
+  background: linear-gradient(145deg, #0f131a, #030405);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 10px rgba(255, 255, 255, 0.05), 0 4px 0 #000000, 0 10px 15px rgba(0,0,0,0.8);
+}
+
+.mic-box {
+  width: 100%;
+  height: 70px;
+  border-radius: 12px;
+  margin: 10px 0 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #111111, #050505);
+  border-top: 1px solid var(--cor-luz-borda);
+  box-shadow: inset 0 1px 15px rgba(252, 227, 0, 0.15), 0 6px 0 #000000, 0 15px 20px rgba(0,0,0,0.9);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; 
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mic-box:active, .resultado-item:active {
+  transform: translateY(6px) scale(0.97);
+  border-top: 1px solid #222; 
+  box-shadow: inset 0 4px 12px rgba(0,0,0,0.9), 0 0px 0 #000000, 0 4px 8px rgba(0,0,0,0.7); 
+}
+
+.mic-box.active-listening {
+  border-top: 1px solid #00ffcc;
+  box-shadow: inset 0 1px 20px rgba(0, 255, 204, 0.2), 0 6px 0 #000000, 0 15px 20px rgba(0,0,0,0.9);
+}
+
+.mic-box.active-listening::after {
+  content: '';
+  position: absolute;
+  width: 40%;
+  height: 3px;
+  background: #00ffcc;
+  box-shadow: 0 0 15px #00ffcc;
+  animation: escuta-fluida 1.2s infinite ease-in-out alternate;
+  border-radius: 50px;
+  bottom: 0;
+}
+
+@keyframes escuta-fluida { 0% { width: 20%; opacity: 0.5; } 100% { width: 80%; opacity: 1; } }
+
+.icon-3d {
+  text-shadow: -1px -1px 1px rgba(255,255,255,0.3), 2px 2px 3px rgba(0,0,0,0.8), 0px 4px 4px rgba(0,0,0,0.6);
+  transform: translateZ(10px);
+  display: inline-block;
+}
+
+.instrucao-container { text-align: center; }
+#instrucao-toque { color: #90cdf4; font-weight: 400; margin: 0 0 12px 0; font-size: 1.05em; }
+#instrucao-diga { color: #ffffff; font-weight: 300; margin: 0 0 10px 0; font-size: 1.3em; }
+#instrucao-diga strong { color: var(--amarelo-correios); font-weight: 700; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
+
+#texto-ouvido {
+  font-style: italic;
+  color: #cbd5e0;
+  min-height: 24px;
+  font-weight: 400;
+  margin: 10px 0 0 0;
+  font-size: 1.1em;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 10px;
+}
+
+#lista-resultados { display: flex; flex-direction: column; gap: 20px; }
+
+.resultado-item {
+  background: linear-gradient(145deg, #111111, #050505);
+  color: #ffffff;
+  padding: 18px;
+  border-radius: 16px;
+  text-align: left;
+  border-top: 1px solid var(--cor-luz-borda);
+  border-left: 1px solid rgba(255,255,255,0.05);
+  box-shadow: inset 0 1px 15px rgba(252, 227, 0, 0.08), 0 6px 0 #000000, 0 15px 20px rgba(0,0,0,0.9);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0; 
+  animation: cinematicEntry 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.label-cep { font-weight: 700; color: var(--amarelo-correios); font-size: 1.25em; letter-spacing: 0.5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);}
+.label-rua { font-weight: 400; display: block; margin-top: 6px; font-size: 1.05em; color: #e2e8f0; }
+.label-bairro { font-size: 0.9em; color: #718096; display: block; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div id="splash-screen">
+  <div class="splash-card">
+    <div class="splash-logo-icon icon-3d">üì¶</div>
+    <h2>CEP VI√áOSA ULTRA</h2>
+    <p id="status-carregamento" style="color: #90cdf4; font-size: 0.9em; margin: 0;">Baixando ruas...</p>
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="main-app">
+  <div class="main-card">
+    <h2>TRIAGEM VI√áOSA CEP's</h2>
+    <div class="inner-card">
+      <div class="mic-box" id="btn-mic">
+        <span class="icon-3d" style="font-size: 24px;">üéôÔ∏è</span>
+      </div>
+      <div class="instrucao-container">
+        <p id="instrucao-toque"><span class="icon-3d">‚è≥</span> Aguarde o carregamento...</p>
+        <p id="instrucao-diga">Diga o <strong>CEP</strong> ou <strong>Logradouro</strong></p>
+        <p id="texto-ouvido"></p>
+      </div>
+    </div>
+    <div id="lista-resultados"></div>
+  </div>
+</div>
+
+<script>
+// 1. COLOQUE A SUA URL AQUI DENTRO DAS ASPAS
+const API_URL = "https://script.google.com/macros/s/AKfycbxMnSE2qXlHpFBojYxhHBIArEMN7u5Q9XO-YNgKILCnIeac6dS42neGwCtxKq0n3O5zmg/exec"; 
+
+let baseDeDadosLocal = [];
+let dadosCarregados = false;
+
+window.addEventListener('load', async () => {
+  // SubstituÌmos o google.script.run pelo mÈtodo moderno fetch()
+  try {
+    const resposta = await fetch(API_URL);
+    const dados = await resposta.json();
+    
+    baseDeDadosLocal = dados;
+    dadosCarregados = true;
+    
+    const instrucaoToque = document.getElementById('instrucao-toque');
+    if (instrucaoToque) instrucaoToque.innerHTML = '<span class="icon-3d"></span> Toque no quadro acima para iniciar';
+    
+    const statusCarregamento = document.getElementById('status-carregamento');
+    if (statusCarregamento) statusCarregamento.innerText = "Tudo pronto!";
+    
+  } catch (erro) {
+    console.error("Erro de conex„o com a API:", erro);
+    const instrucaoToque = document.getElementById('instrucao-toque');
+    if (instrucaoToque) instrucaoToque.innerHTML = '<span style="color: #ff4444;">Erro na conex„o. Verifique a URL da API.</span>';
+  }
+
+  // AnimaÁ„o visual independente do servidor (Mantida exatamente como a sua)
+  setTimeout(() => {
+    const splashScreen = document.getElementById('splash-screen');
+    const mainApp = document.getElementById('main-app');
+
+    if(splashScreen) splashScreen.classList.add('hide-splash');
+
+    setTimeout(() => {
+      if(mainApp) mainApp.classList.add('start-cinematic');
+      setTimeout(() => {
+        if(splashScreen) splashScreen.style.display = 'none';
+      }, 600);
+    }, 300);
+  }, 2500); 
+});
+
+// ¡udio e Haptic Feedback (Mantido intacto)
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
+
+function dispararHapticClick() {
+  if (navigator.vibrate) navigator.vibrate(15);
+  try {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(800, audioCtx.currentTime); 
+    oscillator.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.03);
+    gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + 0.03);
+  } catch (e) {}
+}
+
+document.addEventListener('pointerdown', (e) => {
+  if (e.target.closest('button, a, .mic-box, .resultado-item')) dispararHapticClick();
+});
+
+// Funcionalidades de Voz (Mantidas intactas)
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+recognition.lang = 'pt-BR';
+recognition.continuous = false;
+recognition.interimResults = false;
+
+const micBox = document.getElementById('btn-mic');
+let escutando = false;
+
+if (micBox) {
+  micBox.addEventListener('click', () => {
+    if (!dadosCarregados) {
+      document.getElementById('texto-ouvido').innerText = "Aguarde, conectando ao banco de dados...";
+      return;
+    }
+    if (!escutando) {
+      try { recognition.start(); } catch(e) {}
+    } else {
+      recognition.stop();
+    }
+  });
+}
+
+recognition.onstart = () => {
+  escutando = true;
+  micBox.classList.add('active-listening');
+  document.getElementById('instrucao-toque').innerHTML = '<span style="color: #00ffcc; font-weight: 600;" class="icon-3d"></span> Ouvindo... Fale agora!';
+  document.getElementById('texto-ouvido').innerText = "";
+};
+
+recognition.onresult = (event) => {
+  const fala = event.results[event.results.length - 1][0].transcript;
+  document.getElementById('texto-ouvido').innerText = `Entendido: "${fala}"`;
+  processarBuscaLocal(fala);
+};
+
+recognition.onend = () => {
+  escutando = false;
+  micBox.classList.remove('active-listening');
+  document.getElementById('instrucao-toque').innerHTML = '<span class="icon-3d"></span> Toque no quadro acima para iniciar';
+};
+
+// Busca Otimizada em MemÛria Local (Mantida intacta)
+function processarBuscaLocal(termo) {
+  const termoBusca = String(termo).toLowerCase().trim();
+  const resultadosEncontrados = [];
+
+  for (let i = 0; i < baseDeDadosLocal.length; i++) {
+    const item = baseDeDadosLocal[i];
+    if (item.logradouro.toLowerCase().includes(termoBusca) || item.cepLimpo.includes(termoBusca) || item.cep.includes(termoBusca)) {
+      resultadosEncontrados.push(item);
+    }
+  }
+  exibirResultados(resultadosEncontrados);
+}
+
+function exibirResultados(resultados) {
+  const container = document.getElementById('lista-resultados');
+  if (!container) return;
+  
+  container.style.transition = "all 0.3s ease";
+  container.style.opacity = "0";
+  container.style.transform = "scale(0.92)";
+
+  setTimeout(() => {
+    container.innerHTML = '';
+    if (resultados.length === 0) {
+      container.innerHTML = '<p style="text-align: center; color: #a0aec0; margin-top: 15px;">Nenhum resultado encontrado.</p>';
+    } else {
+      resultados.forEach((res, index) => {
+        const div = document.createElement('div');
+        div.className = 'resultado-item';
+        div.style.animationDelay = `${index * 0.1}s`;
+        div.innerHTML = `
+          <span class="label-cep">${res.cep}</span>
+          <span class="label-rua">${res.logradouro}</span>
+          <span class="label-bairro">Bairro: ${res.bairro}</span>
+        `;
+        container.appendChild(div);
+      });
+    }
+    container.style.opacity = "1";
+    container.style.transform = "scale(1)";
+  }, 300); 
+}
+</script>
+
+</body>
+</html>
+
