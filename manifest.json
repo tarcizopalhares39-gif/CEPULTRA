@@ -1,0 +1,16 @@
+{
+  "name": "Triagem Viçosa CEP",
+  "short_name": "Triagem",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#fce300",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
